@@ -70,7 +70,7 @@ private:
 
     static PyObject* py_method_function_x(PyObject* py_self, PyObject* py_args);
 
-    static void uv_work_create(PyObject* py_object, PyObject* py_args);
+    static void uv_work_create(PyObject* py_object, PyObject* py_args, PyObject* py_kw_args);
     static void uv_work_cb(uv_work_t* req);
     static void uv_after_work_cb(uv_work_t* req, int status);
 
