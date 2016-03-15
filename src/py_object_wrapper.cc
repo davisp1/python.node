@@ -140,8 +140,11 @@ Handle<Value> PyObjectWrapper::ConvertToJS(PyObject* py_object)
     } else if (PyMapping_Check(py_object) != 0) {
         int length = (int)PyMapping_Length(py_object);
         Local<Object> js_object = Object::New(Isolate::GetCurrent());
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wwritable-strings"
         PyObject* py_keys = PyMapping_Keys(py_object);
         PyObject* py_values = PyMapping_Values(py_object);
+#pragma GCC diagnostic pop
         for(int i = 0; i < length; i++) {
             PyObject* py_key = PySequence_GetItem(py_keys, i);
             PyObject* py_value = PySequence_GetItem(py_values, i);
