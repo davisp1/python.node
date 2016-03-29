@@ -118,6 +118,20 @@ function test() {
 		console.log(pytest.test_18({kwArgs: {y:2, z:2}}));
 		console.error("should have thrown; provided args but not 'x'");
 	} catch (expected) {}
+
+	var test_tuple_result = pytest.test_tuple({ 
+		__py_tuple__: [1, "two", 3.14, 
+			{ __py_tuple__: [1, 2] },
+			[3, 4],
+			{ a: 5, b: 6 }
+		] 
+	});
+	if(typeof(test_tuple_result) === 'string' && test_tuple_result.length > 0) {
+		console.error("test_tuple failed: " + test_tuple_result);
+	} else {
+		console.log("test_tuple passed.");
+	}
+
 }
 
 for (var i = 0; i < 1; i++)

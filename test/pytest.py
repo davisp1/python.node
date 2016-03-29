@@ -103,3 +103,24 @@ def test_17():
 def test_18(x, y=5, z=10):
     print '18: x y z:', x, y, z
     return x*y*z
+
+def test_tuple(theTuple):
+	print theTuple
+	if not isinstance(theTuple, tuple):
+		return "object is not a tuple"
+	if len(theTuple) != 6:
+		return "expected a tuple with 6 elements"
+	if theTuple[0] != 1:
+		return "expected first element in tuple to be the numeric 1"
+	if theTuple[1] != "two":
+		return "expected first element in tuple to be the string \"two\""
+	if theTuple[2] != 3.14:
+		return "expected first element in tuple to be the numeric 3.14"
+	if theTuple[3] != (1, 2):
+		return "expected fourth element in tuple to be the tuple (1, 2)"
+	if theTuple[4] != [3, 4]:
+		return "expected fifth element in tuple to be the array [3, 4]"
+	if theTuple[5]['a'] != 5 or theTuple[5]['b'] != 6:
+		return "expected fifth element in tuple to be the object { a: 5, b: 6 }"
+
+	return None

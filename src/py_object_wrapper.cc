@@ -101,19 +101,40 @@ PyObject* PyObjectWrapper::ConvertToPython(const Handle<Value>& js_value)
             Py_XINCREF(py_object);
             return py_object;
         } else {
-            PyObject* py_dict = PyDict_New();
-            Local<Array> js_property_names = js_object->GetPropertyNames();
-            int length = js_property_names->Length();
-            for(int i = 0; i < length; i++) {
-                Local<Value> js_property_key = js_property_names->Get(i);
-                Local<Value> js_property_value = js_object->Get(js_property_key);
-                PyObject* py_property_key = ConvertToPython(js_property_key);
-                PyObject* py_property_value = ConvertToPython(js_property_value);
-                PyDict_SetItem(py_dict, py_property_key, py_property_value);
-                Py_XDECREF(py_property_key);
-                Py_XDECREF(py_property_value);
+            // We use constructs like the following to simulate tuples in Javascript: { __py_tuple__: [100, 200] }
+            Local<Value> pyTupleProperty = js_object->GetRealNamedProperty(
+                String::NewFromUtf8(Isolate::GetCurrent(), "__py_tuple__", String::kInternalizedString));
+
+            // Handle the case when the received object represents a tuple
+            if(!pyTupleProperty.IsEmpty() && pyTupleProperty->IsArray()) {
+                Local<Array> js_array(Handle<Array>::Cast(pyTupleProperty));
+                int length = js_array->Length();
+                PyObject* py_tuple = PyTuple_New(length);
+
+                for (int i = 0; i < length; i++) {
+                    Local<Value> js_item = js_array->Get(i);
+                    PyTuple_SET_ITEM(py_tuple, i, ConvertToPython(js_item));
+                }
+
+                return py_tuple;
+            } // Handle the regular object case
+            else {
+                PyObject* py_dict = PyDict_New();
+                Local<Array> js_property_names = js_object->GetPropertyNames();
+                int length = js_property_names->Length();
+
+                for(int i = 0; i < length; i++) {
+                    Local<Value> js_property_key = js_property_names->Get(i);
+                    Local<Value> js_property_value = js_object->Get(js_property_key);
+                    PyObject* py_property_key = ConvertToPython(js_property_key);
+                    PyObject* py_property_value = ConvertToPython(js_property_value);
+                    PyDict_SetItem(py_dict, py_property_key, py_property_value);
+                    Py_XDECREF(py_property_key);
+                    Py_XDECREF(py_property_value);
+                }
+
+                return py_dict;
             }
-            return py_dict;
         }
     }
 
