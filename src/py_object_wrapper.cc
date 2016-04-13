@@ -59,8 +59,8 @@ PyObject* PyObjectWrapper::ConvertToPython(const Handle<Value>& js_value)
     } else if (js_value->IsBoolean()) {
         return PyBool_FromLong(js_value->BooleanValue());
     } else if (js_value->IsString()) {
-        String::Utf8Value js_value_string(js_value->ToString());
-        return PyString_FromString(*js_value_string);
+        String::Value js_value_string(js_value->ToString());
+        return PyUnicode_FromUnicode(*js_value_string, js_value_string.length());
     } else if (js_value->IsArray()) {
         Local<Array> js_array(Handle<Array>::Cast(js_value));
         int length = js_array->Length();
@@ -303,9 +303,11 @@ Handle<Value> PyObjectWrapper::New(PyObject* py_object)
         long value = PyLong_AsLong(py_object);
         js_value = Local<Value>::New(Isolate::GetCurrent(), Integer::New(Isolate::GetCurrent(), (int32_t)value));
     } else if (PyString_CheckExact(py_object)) {
-        char* value = PyString_AsString(py_object);
+        PyObject* py_unicode = PyUnicode_FromObject(py_object);
+        Py_UNICODE* value = PyUnicode_AsUnicode(py_unicode);
         if (value != NULL)
-            js_value = Local<Value>::New(Isolate::GetCurrent(), String::NewFromUtf8(Isolate::GetCurrent(), value));
+            js_value = Local<Value>::New(Isolate::GetCurrent(), String::NewFromTwoByte(Isolate::GetCurrent(), value));
+        Py_XDECREF(py_unicode);
     } else if (PyBool_Check(py_object)) {
         int value = PyObject_IsTrue(py_object);
         if (value != -1)
@@ -554,13 +556,13 @@ Handle<Value> PyObjectWrapper::InstanceToString(const FunctionCallbackInfo<Value
 
     PyObject* py_object = InstanceGetPyObject();
 
-    PyObject* py_string = PyObject_Str(py_object);
-    if (py_string == NULL)
+    PyObject* py_unicode = PyUnicode_FromObject(py_object);
+    if (py_unicode == NULL)
         return ThrowPythonException();
 
-    Local<String> js_string = String::NewFromUtf8(Isolate::GetCurrent(), PyString_AsString(py_string));
+    Local<String> js_string = String::NewFromTwoByte(Isolate::GetCurrent(), PyUnicode_AsUnicode(py_unicode));
 
-    Py_XDECREF(py_string);
+    Py_XDECREF(py_unicode);
 
     return scope.Escape(js_string);
 }
