@@ -556,13 +556,15 @@ Handle<Value> PyObjectWrapper::InstanceToString(const FunctionCallbackInfo<Value
 
     PyObject* py_object = InstanceGetPyObject();
 
-    PyObject* py_unicode = PyUnicode_FromObject(py_object);
+    PyObject* py_string = PyObject_Str(py_object);
+    PyObject* py_unicode = PyUnicode_FromObject(py_string);
     if (py_unicode == NULL)
         return ThrowPythonException();
 
     Local<String> js_string = String::NewFromTwoByte(Isolate::GetCurrent(), PyUnicode_AsUnicode(py_unicode));
 
     Py_XDECREF(py_unicode);
+    Py_XDECREF(py_string);
 
     return scope.Escape(js_string);
 }
