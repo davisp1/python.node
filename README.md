@@ -71,7 +71,7 @@ copy binding.node <NODE_MODULES_ROOT>\python.js\compiled\<NODEJS_VERSION>\win32\
 ## Install
 
 ```bash
-npm install python.js
+npm install python.node
 ```
 
 or
