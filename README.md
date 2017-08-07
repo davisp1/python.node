@@ -33,8 +33,10 @@ PYMODULE.test(function (result, error) {
 		console.log(result);
 });
 ```
-
-
+If you need to pass keyword args, make the last argument an object with a sub-object `kwArgs` containing them:
+```javascript
+PYMODULE.test("positionalArg", "anotherPositionalArg", { kwArgs: { arg1: "foo", arg2: 42} } );
+```
 ## Build
 
 ### Mac

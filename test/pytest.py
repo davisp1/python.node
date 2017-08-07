@@ -34,9 +34,9 @@ def test_07(value):
 def test_08(value):
 	print value
 	return {
-		'aaa': 111, 222: 'bbb', 'ccc': True, 'ddd': 33.3, 
-		'eee': lambda x,y: x+y, 
-		'fff': [444, '555', 666], 
+		'aaa': 111, 222: 'bbb', 'ccc': True, 'ddd': 33.3,
+		'eee': lambda x,y: x+y,
+		'fff': [444, '555', 666],
 		'ggg': {'hhh': 777, 888: 'iii', 'jjj': lambda x,y: x*y},
 		# 'kkk': __import__('os')
 	}
@@ -99,3 +99,7 @@ def test_17():
 	def aaa(): pass
 	def bbb(): pass
 	return [aaa, bbb]
+
+def test_18(x, y=5, z=10):
+    print '18: x y z:', x, y, z
+    return x*y*z

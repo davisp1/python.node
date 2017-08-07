@@ -2,7 +2,7 @@
 #include "py_object_wrapper.h"
 #include "utils.h"
 
-PyObjectWrapper::PyObjectWrapper(PyObject* py_object) : 
+PyObjectWrapper::PyObjectWrapper(PyObject* py_object) :
     node::ObjectWrap(), __py_object(py_object)
 {
 }
@@ -140,8 +140,11 @@ Handle<Value> PyObjectWrapper::ConvertToJS(PyObject* py_object)
     } else if (PyMapping_Check(py_object) != 0) {
         int length = (int)PyMapping_Length(py_object);
         Local<Object> js_object = Object::New(Isolate::GetCurrent());
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wwritable-strings"
         PyObject* py_keys = PyMapping_Keys(py_object);
         PyObject* py_values = PyMapping_Values(py_object);
+#pragma GCC diagnostic pop
         for(int i = 0; i < length; i++) {
             PyObject* py_key = PySequence_GetItem(py_keys, i);
             PyObject* py_value = PySequence_GetItem(py_values, i);
@@ -294,7 +297,7 @@ Handle<Value> PyObjectWrapper::New(PyObject* py_object)
     }
 
     if (js_value.IsEmpty()) {
-        Handle<FunctionTemplate> _py_function_template = 
+        Handle<FunctionTemplate> _py_function_template =
             Local<FunctionTemplate>::New(Isolate::GetCurrent(), PyObjectWrapper::py_function_template);
         Local<Object> js_object = _py_function_template->GetFunction()->NewInstance();
         PyObjectWrapper* py_object_wrapper = new PyObjectWrapper(py_object);
@@ -471,6 +474,7 @@ Handle<Value> PyObjectWrapper::InstanceCall(const FunctionCallbackInfo<Value>& j
     EscapableHandleScope scope(Isolate::GetCurrent());
 
     PyObject* py_object = InstanceGetPyObject();
+    PyObject* py_kw_args = NULL;
 
     int length = js_args.Length();
     PyObject* py_args = PyTuple_New(length);
@@ -479,16 +483,31 @@ Handle<Value> PyObjectWrapper::InstanceCall(const FunctionCallbackInfo<Value>& j
         PyTuple_SET_ITEM(py_args, i, py_arg);
     }
 
+    // check for {kwArgs: {...}} in last arg
+    if (length >= 1) {
+        PyObject* last = PyTuple_GET_ITEM(py_args, length-1);
+        if (PyDict_Check(last)) {
+            PyObject* kw_args = PyDict_GetItemString(last, "kwArgs");
+            if (kw_args && PyDict_Check(kw_args)) {
+                py_kw_args = kw_args;
+                Py_INCREF(py_kw_args);
+                _PyTuple_Resize(&py_args, length-1);
+            }
+        }
+    }
+
     Handle<Value> js_async = NamedGetter(py_object, "async");
     if (!js_async.IsEmpty() && js_async->ToBoolean()->Value()) {
-        uv_work_create(py_object, py_args);
+        uv_work_create(py_object, py_args, py_kw_args);
         Py_XDECREF(py_args);
+        Py_XDECREF(py_kw_args);
         return Undefined(Isolate::GetCurrent());
     }
 
-    PyObject* py_result = PyObject_CallObject(py_object, py_args);
+    PyObject* py_result = PyObject_Call(py_object, py_args, py_kw_args);
 
     Py_XDECREF(py_args);
+    Py_XDECREF(py_kw_args);
 
     if (py_result != NULL) {
         Local<Value> js_result = New(py_result);
@@ -571,7 +590,7 @@ PyObject* PyObjectWrapper::py_method_function_x(PyObject* py_self, PyObject* py_
     }
 
     py_method_context_t* py_method_context = (py_method_context_t*)PyCObject_AsVoidPtr(py_self);
-    Handle<Function> _js_function = 
+    Handle<Function> _js_function =
         Local<Function>::New(Isolate::GetCurrent(), py_method_context->js_function);
 
     TryCatch js_try_catch;
@@ -588,6 +607,7 @@ PyObject* PyObjectWrapper::py_method_function_x(PyObject* py_self, PyObject* py_
 typedef struct uv_work_data {
     PyObject* py_object;
     PyObject* py_args;
+    PyObject* py_kw_args;
     PyObject* py_result;
 
     bool has_caught_exception;
@@ -598,7 +618,7 @@ typedef struct uv_work_data {
     PyObject* py_async_cb;
 } uv_work_data_t;
 
-void PyObjectWrapper::uv_work_create(PyObject* py_object, PyObject* py_args)
+void PyObjectWrapper::uv_work_create(PyObject* py_object, PyObject* py_args, PyObject* py_kw_args)
 {
     PyThreadStateLock py_thread_lock;
 
@@ -607,6 +627,8 @@ void PyObjectWrapper::uv_work_create(PyObject* py_object, PyObject* py_args)
     data->py_object = py_object;
     Py_XINCREF(py_args);
     data->py_args = py_args;
+    Py_XINCREF(py_kw_args);
+    data->py_kw_args = py_kw_args;
     data->py_result = NULL;
     data->has_caught_exception = false;
     data->py_exception_type = NULL;
@@ -626,14 +648,15 @@ void PyObjectWrapper::uv_work_cb(uv_work_t* req)
 
     uv_work_data_t* data = (uv_work_data_t*)req->data;
 
-    data->py_result = PyObject_CallObject(data->py_object, data->py_args);
+    data->py_result = PyObject_Call(data->py_object, data->py_args, data->py_kw_args);
 
     if (data->py_result == NULL) {
-        data->has_caught_exception = CatchPythonException(&data->py_exception_type, 
+        data->has_caught_exception = CatchPythonException(&data->py_exception_type,
             &data->py_exception_value, &data->py_exception_traceback);
     }
 
     Py_XDECREF(data->py_args);
+    Py_XDECREF(data->py_kw_args);
     Py_XDECREF(data->py_object);
 }
 
@@ -656,9 +679,9 @@ void PyObjectWrapper::uv_after_work_cb(uv_work_t* req, int status)
     } else {
         Handle<Value> js_exception;
         if (data->has_caught_exception) {
-            js_exception = ConvertToJSException(data->py_exception_type, 
+            js_exception = ConvertToJSException(data->py_exception_type,
                 data->py_exception_value, data->py_exception_traceback);
-            ReleasePythonException(data->py_exception_type, 
+            ReleasePythonException(data->py_exception_type,
                 data->py_exception_value, data->py_exception_traceback);
         } else {
             js_exception = Null(Isolate::GetCurrent());
