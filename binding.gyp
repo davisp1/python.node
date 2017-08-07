@@ -18,7 +18,15 @@
                 "<!(/usr/bin/python-config --ldflags)"
               ]
             }
-        }, { # not OSX
+        },
+        'OS=="win"',{ # win
+          "cflags": [
+            "<!(#!/usr/bin/python-config --cflags)"
+          ],
+          "libraries": [
+            "<!(#!/usr/bin/python-config --libs)"
+          ]
+        },{ # linux
           "cflags": [
             "<!(python-config --cflags)"
           ],
