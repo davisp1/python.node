@@ -24,7 +24,7 @@
             "<!(#!/usr/bin/python-config --cflags)"
           ],
           "libraries": [
-            "<!(#!/usr/bin/python-config --libs)"
+            "<!(#!/usr/bin/python-config --ldflags)"
           ]
         },{ # linux
           "cflags": [
