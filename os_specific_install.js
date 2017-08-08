@@ -1,6 +1,8 @@
 var os = require('os')
 var execSync = require('child_process').execSync;
 
+os_picker();
+
 function os_picker() {
 	if (os.platform() === 'darwin') {
 		try {
