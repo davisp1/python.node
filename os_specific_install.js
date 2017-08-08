@@ -9,7 +9,7 @@ function os_picker() {
 			process.exit(err.status);
 		}
 	}
-	else if (os.platform() === 'win') {
+	else if (os.platform() === 'win32') {
 		try {
 			execSync('node-gyp rebuild', {stdio:[0,1,2]});
 		} catch (err) {
