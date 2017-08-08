@@ -16,4 +16,7 @@ function os_picker() {
 			process.exit(err.status);
 		}
 	}
+	else{
+		process.exit();
+	}
 }
