@@ -21,10 +21,10 @@
         },
         'OS=="win"',{ # win
           "cflags": [
-            "<!(#!py cflags.py)"
+            "<!(py cflags.py)"
           ],
           "libraries": [
-            "<!(#!py libs.py)"
+            "<!(py libs.py)"
           ]
         },{ # linux
           "cflags": [
