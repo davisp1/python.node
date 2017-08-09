@@ -1,7 +1,8 @@
 import sysconfig
+import subprocess
 
 def cflags():
     sysconfig.get_config_var('CFLAGS')
-    print('CL /I ' + sysconfig.get_paths()['include'])
+    print('/I ' + sysconfig.get_paths()['include'])
 
 cflags()

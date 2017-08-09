@@ -1,9 +1,8 @@
-import os
 import sysconfig
-import re
+import subprocess
 
 def cflags():
-    sysconfig.get_config_var('CFLAGS')
-    print('CL /MT ' + sysconfig.get_paths()['stdlib'] + '\\python27.lib')
+    sysconfig.get_config_var('LIBS')
+    print('/MT ' + sysconfig.get_paths()['stdlib'] + '\\python27.lib')
 
 cflags()
