@@ -21,10 +21,10 @@
         },
         'OS=="win"',{ # win
             'msvs_settings':{
-              "cflags": [
+              "VCCLCompilerTool": [
                 "<!(py cflags.py)"
               ],
-              "libraries": [
+              "VCLibrarianTool": [
                 "<!(py libs.py)"
               ]
             }
