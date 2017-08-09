@@ -20,13 +20,16 @@
             }
         },
         'OS=="win"',{ # win
-          "cflags": [
-            "<!(py cflags.py)"
-          ],
-          "libraries": [
-            "<!(py libs.py)"
-          ]
-        },{ # linux
+            'msvs_settings':{
+              "cflags": [
+                "<!(py cflags.py)"
+              ],
+              "libraries": [
+                "<!(py libs.py)"
+              ]
+            }
+        },
+        { # linux
           "cflags": [
             "<!(python-config --cflags)"
           ],
