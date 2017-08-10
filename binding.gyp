@@ -22,15 +22,15 @@
         'OS=="win"',{ # win
             'msvs_settings':{
               "VCCLCompilerTool": {
-                'include_dirs':[
-                    "<!(py cflags.py)"
-                ]
               },
               "VCLibrarianTool": {
-                'libraries':[
-                    "<!(py libs.py)"
-                ]
-              }
+              },
+              'include_dirs':[
+                  "<!(py cflags.py)"
+              ],
+              'libraries':[
+                  "<!(py libs.py)"
+              ]
             }
         },
         { # linux
