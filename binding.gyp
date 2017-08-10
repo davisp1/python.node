@@ -21,17 +21,16 @@
         },
         'OS=="win"',{ # win
             'msvs_settings':{
-              "VCCLCompilerTool": {
-              },
-              "VCLibrarianTool": {
-              },
-              'include_dirs':[
-                  "<!(py cflags.py)"
-              ],
-              'libraries':[
-                  "<!(py libs.py)"
-              ]
-            }
+              'VCCLCompilerTool':{
+                "ExceptionHandling": 1
+              }
+            },
+            'include_dirs':[
+                "<!(py cflags.py)"
+            ],
+            'libraries':[
+                "<!(py libs.py)"
+            ]
         },
         { # linux
           "cflags": [
