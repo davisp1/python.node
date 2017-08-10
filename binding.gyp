@@ -21,12 +21,12 @@
         },
         'OS=="win"',{ # win
             'msvs_settings':{
-              "VCLCompilerTool": [
+              "VCCLCompilerTool": {
                 "<!(py cflags.py)"
-              ],
-              "VCLibrarianTool": [
+              },
+              "VCLibrarianTool": {
                 "<!(py libs.py)"
-              ]
+              }
             }
         },
         { # linux
