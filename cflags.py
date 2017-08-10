@@ -1,10 +1,10 @@
 import sysconfig
 import subprocess
 
-#TODO: correct file
+#TODO: correct
 
 def cflags():
     sysconfig.get_config_var('VCCLCompilerTool')
-    print('/I ' + sysconfig.get_paths()['include'])
+    print(sysconfig.get_paths()['include'])
 
 cflags()
