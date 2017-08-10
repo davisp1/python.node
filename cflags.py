@@ -1,7 +1,7 @@
 import sysconfig
 import subprocess
 
-#TODO: make it execute
+#TODO: correct file
 
 def cflags():
     sysconfig.get_config_var('VCCLCompilerTool')
