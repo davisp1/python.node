@@ -25,7 +25,7 @@
                 "ExceptionHandling": 1
               },
               'cflags':[
-                  "/I"
+                  "/I",
                   "<!(py cflags.py)"
               ],
               'libraries':[
