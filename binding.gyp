@@ -25,7 +25,7 @@
                 "ExceptionHandling": 1
               }
             },
-            'cflags':[
+            'include_dirs':[
                 "<!(py cflags.py)"
             ],
             'libraries':[
