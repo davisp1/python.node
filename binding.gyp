@@ -25,12 +25,11 @@
                 "ExceptionHandling": 1
               }
             },
-            'cflags':[
-                "/I",
+            'include_dirs':[
                 "<!(py cflags.py)"
             ],
             'libraries':[
-                "/LD",
+                "/MT",
                 "<!(py libs.py)"
             ]
         },
