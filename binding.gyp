@@ -28,8 +28,13 @@
             ],
             'link_settings':{
                 'libraries':[
-                    "<!(py libs.py)"
+                    "/LD <!(py libs.py)"
                 ]
+            },
+            'VCCLCompilerTool':{
+                "ExceptionHandling": 1
+            },
+            'VCLibrarianTool':{
             }
         },
         { # linux
