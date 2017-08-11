@@ -26,7 +26,6 @@
               }
             },
             'cflags':[
-                "/WX ",
                 "<!(py cflags.py)"
             ],
             'libraries':[
