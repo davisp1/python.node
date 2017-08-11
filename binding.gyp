@@ -24,13 +24,14 @@
               'VCCLCompilerTool':{
                 "ExceptionHandling": 1
               }
-            },
-            'include_dirs':[
-                "<!(py cflags.py)"
-            ],
-            'ldflags':[
-                "<!(py libs.py)"
-            ]
+              'cflags':[
+                  "/I"
+                  "<!(py cflags.py)"
+              ],
+              'libraries':[
+                  "<!(py libs.py)"
+              ]
+            }
         },
         { # linux
           "cflags": [
