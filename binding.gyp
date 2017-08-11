@@ -23,7 +23,7 @@
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
-            'libraries':[
+            'ldflags':[
                 "<!(py libs.py)"
             ]
         },
