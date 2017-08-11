@@ -20,6 +20,9 @@
             }
         },
         'OS=="win"',{ # win
+            'cflags':[
+                "/WX"
+            ],
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
