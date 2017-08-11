@@ -26,11 +26,9 @@
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
-            'link_settings':{
-                'libraries':[
-                    "<!(py libs.py)"
-                ]
-            },
+            'libraries':[
+                "<!(py libs.py)"
+            ],
             'VCCLCompilerTool':{
                 "ExceptionHandling": 1
             },
