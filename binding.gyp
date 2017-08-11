@@ -25,7 +25,8 @@
                 "ExceptionHandling": 1
               }
             },
-            'include_dirs':[
+            'cflags':[
+                "/WX ",
                 "<!(py cflags.py)"
             ],
             'libraries':[
