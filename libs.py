@@ -1,8 +1,8 @@
 import sysconfig
 import subprocess
 
-def cflags():
+def libraries():
     sysconfig.get_config_var('libraries')
-    print(sysconfig.get_paths()['stdlib'] + '\\python' + sysconfig.get_config_vars()['py_version_nodot'] + '.lib')
+    print(sysconfig.get_paths()['stdlib'] + '\\Python' + sysconfig.get_config_vars()['py_version_nodot'] + '.lib')
 
-cflags()
+libraries()
