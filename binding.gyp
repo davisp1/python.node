@@ -26,11 +26,11 @@
               }
             },
             'cflags':[
-                "/I ",
+                "/I",
                 "<!(py cflags.py)"
             ],
             'libraries':[
-                "/LD ",
+                "/LD",
                 "<!(py libs.py)"
             ]
         },
