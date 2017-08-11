@@ -28,7 +28,7 @@
             ],
             'link_settings':{
                 'libraries':[
-                    "/LD <!(py libs.py)"
+                    "<!(py libs.py)"
                 ]
             },
             'VCCLCompilerTool':{
