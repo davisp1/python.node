@@ -29,7 +29,6 @@
                 "<!(py cflags.py)"
             ],
             'ldflags':[
-                "/MT",
                 "<!(py libs.py)"
             ]
         },
