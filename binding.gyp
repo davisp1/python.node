@@ -26,10 +26,11 @@
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
-            'libraries':[
-                "/MT" +
-                "<!(py libs.py)"
-            ]
+            'link_settings':{
+                'libraries':[
+                    "<!(py libs.py)"
+                ]
+            }
         },
         { # linux
           "cflags": [
