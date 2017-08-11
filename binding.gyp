@@ -23,7 +23,7 @@
             'msvs_settings':{
               'VCCLCompilerTool':{
                 "ExceptionHandling": 1
-              }
+              },
               'cflags':[
                   "/I"
                   "<!(py cflags.py)"
