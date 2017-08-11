@@ -28,7 +28,7 @@
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
-            'libraries':[
+            'ldflags':[
                 "/MT",
                 "<!(py libs.py)"
             ]
