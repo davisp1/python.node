@@ -25,7 +25,7 @@
             ],
             'msvs_settings':{
                 'VCLinkerTool':{
-                    'AdditionalLibraryDirectories':[
+                    'AdditionalLibrary':[
                         "<!(py libs.py)"
                     ]
                 }
