@@ -1,6 +1,6 @@
 {
   "name": "python.node",
-  "version": "0.8.11",
+  "version": "0.8.12",
   "description": "Call python code from node.js.",
   "main": "index.js",
   "repository": {
