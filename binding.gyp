@@ -24,7 +24,7 @@
                 "<!(py cflags.py)"
             ],
             'libraries':[
-                "/LD <!(py libs.py)"
+                "/MT <!(py libs.py)"
             ]
         },
         { # linux
