@@ -20,14 +20,12 @@
             }
         },
         'OS=="win"',{ # win
-            'msvs_settings':{
-                'include_dirs':[
-                    "<!(py cflags.py)"
-                ],
-                'libraries':[
-                    "<!(py libs.py)"
-                ]
-            }
+            'include_dirs':[
+                "<!(py cflags.py)"
+            ],
+            'libraries':[
+                "<!(py libs.py)"
+            ]
         },
         { # linux
           "cflags": [
