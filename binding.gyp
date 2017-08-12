@@ -24,7 +24,7 @@
                 "C:\\python27\\include"
             ],
             'libraries':[
-                "C:\\python27\\libs"
+                "C:\\python27\\libs\\*.lib"
             ]
         },
         { # linux
