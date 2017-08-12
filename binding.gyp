@@ -23,13 +23,9 @@
             'include_dirs':[
                 "C:\\python27\\include"
             ],
-            'msvs_settings':{
-                'VCLinkerTool':{
-                    'AdditionalLibrary':[
-                        "C:\\python27\\libs\\python27.lib"
-                    ]
-                }
-            }
+            'libraries':[
+                "C:\\python27\\libs\\python27.lib"
+            ]
         },
         { # linux
           "cflags": [
