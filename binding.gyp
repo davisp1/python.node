@@ -21,12 +21,12 @@
         },
         'OS=="win"',{ # win
             'include_dirs':[
-                "<!(py cflags.py)"
+                "C:\\python27\\include"
             ],
             'msvs_settings':{
                 'VCLinkerTool':{
                     'AdditionalLibrary':[
-                        "<!(py libs.py)"
+                        "C:\\python27\\libs\\python27.lib"
                     ]
                 }
             }
