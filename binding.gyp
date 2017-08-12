@@ -20,19 +20,21 @@
             }
         },
         'OS=="win"',{ # win
-            'cflags':[
-                "/WX"
-            ],
-            'include_dirs':[
-                "<!(py cflags.py)"
-            ],
-            'libraries':[
-                "<!(py libs.py)"
-            ],
-            'VCCLCompilerTool':{
-                "ExceptionHandling": 1
-            },
-            'VCLibrarianTool':{
+            'msvs_settings':{
+                'cflags':[
+                    "/WX"
+                ],
+                'include_dirs':[
+                    "<!(py cflags.py)"
+                ],
+                'libraries':[
+                    "<!(py libs.py)"
+                ],
+                'VCCLCompilerTool':[
+                    "ExceptionHandling": 1
+                ],
+                'VCLibrarianTool':[
+                ]
             }
         },
         { # linux
