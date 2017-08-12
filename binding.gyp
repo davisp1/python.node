@@ -23,9 +23,13 @@
             'include_dirs':[
                 "<!(py cflags.py)"
             ],
-            'libraries':[
-                "-l <!(py libs.py)"
-            ]
+            'msvs_settings':{
+                'VCLinkerTool':{
+                    'AdditionalLibraryDirectories':[
+                        "<!(py libs.py)"
+                    ]
+                }
+            }
         },
         { # linux
           "cflags": [
