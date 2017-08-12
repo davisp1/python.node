@@ -23,9 +23,11 @@
             'include_dirs':[
                 "C:\\python27\\include"
             ],
-            'libraries':[
-                "C:\\python27\\libs\\python27.lib"
-            ]
+            'link_settings':{
+                'libraries':[
+                    "C:\\python27\\libs\\python27.lib"
+                ]
+            }
         },
         { # linux
           "cflags": [
