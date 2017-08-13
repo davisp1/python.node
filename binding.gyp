@@ -25,8 +25,36 @@
             ],
             'link_settings':{
                 'libraries':[
-                    "/LD C:\\python27\\libs\\python27.lib"
+                    "C:\\python27\\libs\\python27.lib"
                 ]
+            }
+            "msvs_settings": {
+                "VCCLCompilerTool": {
+                    "RuntimeLibrary": 0,
+                    "Optimization": 3,
+                    "FavorSizeOrSpeed": 1,
+                    "InlineFunctionExpansion": 2,
+                    "WholeProgramOptimization": "true",
+                    "OmitFramePointers": "true",
+                    "EnableFunctionLevelLinking": "true",
+                    "EnableIntrinsicFunctions": "true",
+                    "RuntimeTypeInfo": "false",
+                    "ExceptionHandling": "0",
+                    "AdditionalOptions": [
+                        "/MP /EHsc"
+                    ]
+                },
+                "VCLibrarianTool": {
+                    "AdditionalOptions": [
+                        "/LTCG"
+                    ]
+                },
+                "VCLinkerTool": {
+                    "LinkTimeCodeGeneration": 1,
+                    "OptimizeReferences": 2,
+                    "EnableCOMDATFolding": 2,
+                    "LinkIncremental": 1,
+                }
             }
         },
         { # linux
