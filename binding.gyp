@@ -27,7 +27,7 @@
                 'libraries':[
                     "C:\\python27\\libs\\python27.lib"
                 ]
-            }
+            },
             "msvs_settings": {
                 "VCCLCompilerTool": {
                     "RuntimeLibrary": 0,
