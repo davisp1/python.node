@@ -23,7 +23,7 @@
             'include_dirs':[
                 "C:\\python27\\include"
             ],
-            'libraries':[
+            'ldflags':[
                 "-LD C:\\python27\\libs\\python27.lib"
             ]
         },
