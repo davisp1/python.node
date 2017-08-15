@@ -21,11 +21,11 @@
         },
         'OS=="win"',{ # win
             'include_dirs':[
-                "C:\\python27\\include"
+                "C:\\Program Files\\python36\\include"
             ],
             'link_settings':{
                 'libraries':[
-                    "C:\\python27\\libs\\python27.lib"
+                    "C:\\Program Files\\python36\\libs\\python36.lib"
                 ]
             }
         },
