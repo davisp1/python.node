@@ -24,8 +24,8 @@
                 "C:\\python27\\include"
             ],
             'link_settings':{
-                'ldflags':[
-                    "-L C:\\python27\\libs\\python27.lib"
+                'libraries':[
+                    "-LD C:\\python27\\libs\\python27.lib"
                 ]
             }
         },
