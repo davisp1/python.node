@@ -25,7 +25,7 @@
             ],
             'link_settings':{
                 'ldflags':[
-                    "-LD \\C:\\python27\\libs\\python27.lib"
+                    "-L C:\\python27\\libs\\python27.lib"
                 ]
             }
         },
