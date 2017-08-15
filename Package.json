@@ -1,6 +1,6 @@
 {
   "name": "python.node",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "Call python code from node.js.",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "test": "node test/jstest.js",
-    "install": "node-gyp rebuild"
+    "install": "node os_specific_install.js"
   },
   "license": "BSD",
   "gypfile": true,

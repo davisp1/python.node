@@ -12,13 +12,24 @@
             "xcode_settings": {
               "OTHER_CFLAGS": [
                 "-Wno-error=unused-command-line-argument",
-                "<!(/usr/bin/python-config --cflags)"
+                "<!(python-config --cflags)"
               ],
               "OTHER_LDFLAGS": [
-                "<!(/usr/bin/python-config --ldflags)"
+                "<!(python-config --ldflags)"
               ]
             }
-        }, { # not OSX
+        },
+        'OS=="win"',{ # win
+            'include_dirs':[
+                "C:\\python27\\include"
+            ],
+            'link_settings':{
+                'libraries':[
+                    "C:\\python27\\libs\\python27.lib"
+                ]
+            }
+        },
+        { # linux
           "cflags": [
             "<!(python-config --cflags)"
           ],

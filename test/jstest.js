@@ -32,10 +32,10 @@ function test() {
 	console.log(pytest.test_07({'aaa': 111, 'bbb': 222}).valueOf());
 
 	console.log(pytest.test_08({
-		'aaa': 111, 222: 'bbb', 'ccc': true, 'ddd': 33.3, 
-		'eee': function (x, y) { return x + y; }, 
-		'fff': [444, '555', 666], 
-		'ggg': {'hhh': 777, 888: 'iii', 'jjj': function (x, y) { return x * y; }}, 
+		'aaa': 111, 222: 'bbb', 'ccc': true, 'ddd': 33.3,
+		'eee': function (x, y) { return x + y; },
+		'fff': [444, '555', 666],
+		'ggg': {'hhh': 777, 888: 'iii', 'jjj': function (x, y) { return x * y; }},
 		// 'kkk': this
 	}).valueOf());
 
@@ -98,6 +98,26 @@ function test() {
 	console.log('test_16 end');
 
 	console.log(pytest.test_17().valueOf());
+
+	try {
+		console.log(pytest.test_18());
+		console.error("should have thrown; requires at least 1 arg");
+	} catch (expected) {}
+	console.log(pytest.test_18(1,2,3));
+	console.log(pytest.test_18(2, {kwArgs: {y:3}}));
+	console.log(pytest.test_18(2, {kwArgs: {z:4}}));
+	console.log(pytest.test_18(2, {kwArgs: {y:6, z:7}}));
+	console.log(pytest.test_18({kwArgs: {x: 4, y:2, z:3}}));
+
+	try {
+		console.log(pytest.test_18(8000, {kwArgs: {x: 4, y:2, z:2}}));
+		console.error("should have thrown; duplication of arg 'x' (positional and kw)");
+	} catch (expected) {}
+
+	try {
+		console.log(pytest.test_18({kwArgs: {y:2, z:2}}));
+		console.error("should have thrown; provided args but not 'x'");
+	} catch (expected) {}
 }
 
 for (var i = 0; i < 1; i++)
