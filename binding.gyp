@@ -25,7 +25,7 @@
             ],
             'link_settings':{
                 'libraries':[
-                    "-MT C:\\python27\\libs\\libpython27.a"
+                    "-LD, C:\\python27\\libs\\python27.lib"
                 ]
             }
         },
