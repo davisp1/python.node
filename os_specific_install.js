@@ -14,6 +14,7 @@ function os_picker() {
 	else if (os.platform() === 'win32' || os.platform() === 'win64') {
 		try {
 			execSync('node-gyp rebuild', {stdio:[0,1,2]});
+			execSync('rebuild', {stdio:[0,1,2]});
 		} catch (err) {
 			process.exit(err.status);
 		}
