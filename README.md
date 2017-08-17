@@ -1,4 +1,4 @@
-# python.js
+# python.node
 
 Call python code from node.js.
 
